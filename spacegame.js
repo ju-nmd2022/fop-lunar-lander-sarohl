@@ -3,10 +3,10 @@ let starY = [];
 let starAlpha = [];
 let speed = 0;
 let x = 200;
-let y = 50;
+let y = 200;
 let s = 0.45;
 let xSpaceship = 250;
-let ySpaceship = 250;
+let ySpaceship = 50;
 let velocity = 1;
 let acceleration = 0.2;
 let isGameActive = false;
@@ -102,32 +102,34 @@ function spaceship(xSpaceship, ySpaceship, s) {
   rect(xSpaceship - 72 * s, ySpaceship - 46 * s, 4 * s, 86 * s, 9 * s);
 }
 
-// landing
-// fill(125, 150, 190);
-// noStroke();
-// ellipse(500, 240, 105, 90);
+// landing;
+function landing() {
+  fill(125, 150, 190);
+  noStroke();
+  ellipse(300, 670, 455, 400);
+}
 
 // // alien
-// function alien(x, y, s) {
+// function alien() {
 //   fill(149, 224, 189);
 //   noStroke();
 //   // head
-//   ellipse(x + 170, y + 150, 20);
+//   ellipse(x + 170 * s, y + 150 * s, 20 * s);
 //   //body
-//   ellipse(x + 170, y + 130, 27, 28);
+//   ellipse(x + 170 * s, y + 130 * s, 27 * s, 28 * s);
 //   //eyes
 //   fill(255, 255, 255);
-//   ellipse(x + 170, y + 98, 14, 10);
+//   ellipse(x + 170 * s, y + 98 * s, 14 * s, 10 * s);
 //   fill(0, 0, 0);
-//   ellipse(x + 170, y + 102, 7.5);
+//   ellipse(x + 170 * s, y + 102 * s, 7.5 * s);
 //   //arms
 //   fill(149, 224, 189);
-//   rect(x+ 123, y+ 86, 46, 2);
+//   rect(x + 123 * s, y + 86 * s, 46 * s, 2 * s);
 //   //stick
-//   rect(x + 101, y+78, 2, 12);
-//   ellipse(x + 170, 80, 10, 10);
+//   rect(x + 101 * s, y + 78 * s, 2 * s, 12 * s);
+//   ellipse(x + 170 * s, 80 * s, 10 * s, 10 * s);
 //   fill(0, 0, 0);
-//   ellipse(x + 170, 80, 8);
+//   ellipse(x + 170 * s, y + 120 * s, 8 * s);
 // }
 
 function gameScreen() {
@@ -140,6 +142,8 @@ function gameScreen() {
     starAlpha[index] = starAlpha[index] + 0.02;
   }
   spaceship(xSpaceship, ySpaceship + 130, s);
+  landing();
+  // alien();
 
   if (isGameActive) {
     ySpaceship = ySpaceship + velocity;
@@ -160,7 +164,26 @@ function gameScreen() {
   }
 }
 
+function startScreen() {
+  background(107, 133, 135);
+  text("Start", x + 50, y + 50);
+  textSize(50);
+}
+
+function resultScreen() {
+  background(107, 133, 135);
+  text("Result", x + 50, y + 50);
+  textSize(50);
+}
+
+let state = "result";
+
 function draw() {
-  // alien(x, y, s);
-  gameScreen();
+  if (state === "start") {
+    startScreen();
+  } else if (state === "game") {
+    gameScreen();
+  } else if (state === "result") {
+    resultScreen();
+  }
 }
