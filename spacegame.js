@@ -141,9 +141,9 @@ function gameScreen() {
     ellipse(starx[index], starY[index], 3);
     starAlpha[index] = starAlpha[index] + 0.02;
   }
-  spaceship(xSpaceship, ySpaceship + 130, s);
   landing();
   // alien();
+  spaceship(xSpaceship, ySpaceship + 130, s);
 
   if (isGameActive) {
     ySpaceship = ySpaceship + velocity;
@@ -162,6 +162,38 @@ function gameScreen() {
   } else {
     speed = 0;
   }
+
+  if (keyIsDown(38)) {
+    isGameActive = true;
+  }
+  if (
+    (ySpaceship > 510 && xSpaceship < 180) ||
+    (ySpaceship > 510 && xSpaceship > 430)
+  ) {
+    isGameActive = false;
+    state = "lose";
+  } else if (ySpaceship > 510) {
+    state = "win";
+  }
+
+  if (
+    spaceship < 220 &&
+    spaceship > 190 &&
+    xSpaceship > 90 &&
+    xSpaceship < 135
+  ) {
+    isGameActive = false;
+    state = "lose";
+  }
+  if (
+    spaceship < 270 &&
+    spaceship > 245 &&
+    xSpaceship > 290 &&
+    xSpaceship < 335
+  ) {
+    isGameActive = false;
+    state = "lose";
+  }
 }
 
 function startScreen() {
@@ -170,20 +202,28 @@ function startScreen() {
   textSize(50);
 }
 
-function resultScreen() {
+function loseScreen() {
   background(107, 133, 135);
-  text("Result", x + 50, y + 50);
+  text("lose", x + 50, y + 50);
   textSize(50);
 }
 
-let state = "result";
+function winScreen() {
+  background(207, 233, 135);
+  text("win", x + 50, y + 50);
+  textSize(50);
+}
+
+let state = "game";
 
 function draw() {
   if (state === "start") {
     startScreen();
   } else if (state === "game") {
     gameScreen();
-  } else if (state === "result") {
-    resultScreen();
+  } else if (state === "lose") {
+    loseScreen();
+  } else if (state === "win") {
+    winScreen();
   }
 }
