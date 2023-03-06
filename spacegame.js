@@ -1,15 +1,15 @@
 let starx = [];
 let starY = [];
 let starAlpha = [];
-let speed = 0.0001;
+let speed = 0;
 let x = 200;
-let y = 200;
-let s = 0.35;
+let y = 50;
+let s = 0.45;
 let xSpaceship = 250;
-let ySpaceship = 20;
-let velocity = 0.000000001;
-let acceleration = 0.00002;
-let isGameActive = true;
+let ySpaceship = 250;
+let velocity = 1;
+let acceleration = 0.2;
+let isGameActive = false;
 
 // star blinking
 for (let i = 0; i < 200; i++) {
@@ -131,29 +131,6 @@ function spaceship(xSpaceship, ySpaceship, s) {
 // }
 
 function gameScreen() {
-  spaceship(xSpaceship, ySpaceship + 130, s);
-  if (isGameActive) {
-    ySpaceship = ySpaceship + velocity;
-    velocity = velocity + acceleration;
-    ySpaceship = ySpaceship + speed;
-  }
-  if (keyIsDown(38)) {
-    isGameActive = true;
-  }
-  if (keyIsDown(38)) {
-    velocity = velocity - 0.0001;
-  } else if (keyIsDown(39)) {
-    speed = 0.00002;
-  } else if (keyIsDown(37)) {
-    speed = -0.000002;
-  } else {
-    speed = 0.00001;
-  }
-}
-
-console.log(isGameActive);
-
-function draw() {
   noStroke();
   background(0, 0, 0);
 
@@ -161,8 +138,29 @@ function draw() {
     fill(255, 255, 255, Math.abs(Math.sin(starAlpha[index])) * 255);
     ellipse(starx[index], starY[index], 3);
     starAlpha[index] = starAlpha[index] + 0.02;
-
-    // alien(x, y, s);
-    gameScreen();
   }
+  spaceship(xSpaceship, ySpaceship + 130, s);
+
+  if (isGameActive) {
+    ySpaceship = ySpaceship + velocity;
+    velocity = velocity + acceleration;
+    xSpaceship = xSpaceship + speed;
+  }
+  if (keyIsDown(38)) {
+    isGameActive = true;
+  }
+  if (keyIsDown(38)) {
+    velocity = velocity - 0.5;
+  } else if (keyIsDown(39)) {
+    speed = 5;
+  } else if (keyIsDown(37)) {
+    speed = -5;
+  } else {
+    speed = 0;
+  }
+}
+
+function draw() {
+  // alien(x, y, s);
+  gameScreen();
 }
