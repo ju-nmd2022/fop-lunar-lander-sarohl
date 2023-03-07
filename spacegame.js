@@ -15,7 +15,7 @@ let acceleration = 0.2;
 let isGameActive = false;
 
 // star blinking
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < 250; i++) {
   const x = Math.floor(Math.random() * width);
   const y = Math.floor(Math.random() * height);
   const alpha = Math.random();
@@ -114,9 +114,8 @@ function landing() {
 
 // // alien
 function alien() {
-  push();
   fill(149, 224, 189);
-  stroke(0, 0, 0);
+  noStroke(0, 0, 0);
   //arms
   fill(149, 224, 189);
   rect(xAlien + 148 * sAlien, yAlien + 124 * sAlien, 42 * sAlien, 2 * sAlien);
@@ -128,15 +127,19 @@ function alien() {
     28 * sAlien
   );
   // head
+  noStroke();
   ellipse(xAlien + 170 * sAlien, yAlien + 110 * sAlien, 20 * sAlien);
   //eyes
+  push();
   fill(255, 255, 255);
+  stroke(0, 0, 0);
   ellipse(
     xAlien + 170 * sAlien,
     yAlien + 108 * sAlien,
     14 * sAlien,
     10 * sAlien
   );
+  pop();
   fill(0, 0, 0);
   ellipse(xAlien + 170 * sAlien, yAlien + 108 * sAlien, 7.5 * sAlien);
   //stick
@@ -150,7 +153,6 @@ function alien() {
   );
   fill(0, 0, 0);
   ellipse(xAlien + 170 * sAlien, yAlien + 89 * sAlien, 7 * sAlien);
-  pop();
 }
 
 function gameScreen() {
@@ -159,8 +161,8 @@ function gameScreen() {
 
   for (let index in starx) {
     fill(255, 255, 255, Math.abs(Math.sin(starAlpha[index])) * 255);
-    ellipse(starx[index], starY[index], 3);
-    starAlpha[index] = starAlpha[index] + 0.02;
+    ellipse(starx[index], starY[index], 2);
+    starAlpha[index] = starAlpha[index] + 0.04;
   }
   landing();
   alien();
@@ -196,6 +198,11 @@ function gameScreen() {
   } else if (ySpaceship > 355) {
     state = "win";
   }
+
+  if (velocity > 5 && ySpaceship > 310) {
+    isGameActive = false;
+    state = "lose";
+  }
 }
 
 function startScreen() {
@@ -230,7 +237,7 @@ function winScreen() {
   textSize(40);
   text("Wow you saved the alien!", x - 120, y + 50);
   textSize(25);
-  text("Play agian? Press enter.", x - 32, y + 102);
+  text("Play again? Press enter.", x - 32, y + 102);
   if (keyIsDown(13)) {
     state = "start";
   }
@@ -249,4 +256,4 @@ function draw() {
     winScreen();
   }
 }
-console.log(y);
+console.log(xAlien);
