@@ -5,6 +5,9 @@ let speed = 0;
 let x = 200;
 let y = 200;
 let s = 0.45;
+let sAlien = 1.4;
+let xAlien = 110;
+let yAlien = 290;
 let xSpaceship = 250;
 let ySpaceship = 50;
 let velocity = 1;
@@ -110,27 +113,45 @@ function landing() {
 }
 
 // // alien
-// function alien() {
-//   fill(149, 224, 189);
-//   noStroke();
-//   // head
-//   ellipse(x + 170 * s, y + 150 * s, 20 * s);
-//   //body
-//   ellipse(x + 170 * s, y + 130 * s, 27 * s, 28 * s);
-//   //eyes
-//   fill(255, 255, 255);
-//   ellipse(x + 170 * s, y + 98 * s, 14 * s, 10 * s);
-//   fill(0, 0, 0);
-//   ellipse(x + 170 * s, y + 102 * s, 7.5 * s);
-//   //arms
-//   fill(149, 224, 189);
-//   rect(x + 123 * s, y + 86 * s, 46 * s, 2 * s);
-//   //stick
-//   rect(x + 101 * s, y + 78 * s, 2 * s, 12 * s);
-//   ellipse(x + 170 * s, 80 * s, 10 * s, 10 * s);
-//   fill(0, 0, 0);
-//   ellipse(x + 170 * s, y + 120 * s, 8 * s);
-// }
+function alien() {
+  push();
+  fill(149, 224, 189);
+  stroke(0, 0, 0);
+  //arms
+  fill(149, 224, 189);
+  rect(xAlien + 148 * sAlien, yAlien + 124 * sAlien, 42 * sAlien, 2 * sAlien);
+  //body
+  ellipse(
+    xAlien + 170 * sAlien,
+    yAlien + 130 * sAlien,
+    27 * sAlien,
+    28 * sAlien
+  );
+  // head
+  ellipse(xAlien + 170 * sAlien, yAlien + 110 * sAlien, 20 * sAlien);
+  //eyes
+  fill(255, 255, 255);
+  ellipse(
+    xAlien + 170 * sAlien,
+    yAlien + 108 * sAlien,
+    14 * sAlien,
+    10 * sAlien
+  );
+  fill(0, 0, 0);
+  ellipse(xAlien + 170 * sAlien, yAlien + 108 * sAlien, 7.5 * sAlien);
+  //stick
+  fill(149, 224, 189);
+  rect(xAlien + 169 * sAlien, yAlien + 89 * sAlien, 2 * sAlien, 12 * sAlien);
+  ellipse(
+    xAlien + 170 * sAlien,
+    yAlien + 89 * sAlien,
+    10 * sAlien,
+    10 * sAlien
+  );
+  fill(0, 0, 0);
+  ellipse(xAlien + 170 * sAlien, yAlien + 89 * sAlien, 7 * sAlien);
+  pop();
+}
 
 function gameScreen() {
   noStroke();
@@ -142,7 +163,7 @@ function gameScreen() {
     starAlpha[index] = starAlpha[index] + 0.02;
   }
   landing();
-  // alien();
+  alien();
   spaceship(xSpaceship, ySpaceship + 130, s);
 
   if (isGameActive) {
@@ -179,8 +200,10 @@ function gameScreen() {
 
 function startScreen() {
   background(107, 133, 135);
-  text("Start", x + 50, y + 50);
-  textSize(50);
+  textSize(35);
+  text("Oh no, the alien is stuck in space!", x - 155, y + 50);
+  textSize(25);
+  text("Press space to save him", x - 34, y + 102);
   if (keyIsDown(32)) {
     xSpaceship = 100;
     ySpaceship = 30;
@@ -191,23 +214,29 @@ function startScreen() {
 
 function loseScreen() {
   background(107, 133, 135);
-  text("lose", x + 50, y + 50);
-  textSize(50);
+  textSize(40);
+  text("To bad you lost", x - 30, y + 50);
+  textSize(25);
+  text("Press enter to start again", x - 34, y + 102);
+
   if (keyIsDown(13)) {
     state = "start";
   }
 }
 
 function winScreen() {
-  background(207, 233, 135);
-  text("Wow you won!", x + 50, y + 50);
-  textSize(50);
+  background(149, 224, 189);
+  noStroke();
+  textSize(40);
+  text("Wow you saved the alien!", x - 120, y + 50);
+  textSize(25);
+  text("Play agian? Press enter.", x - 32, y + 102);
   if (keyIsDown(13)) {
     state = "start";
   }
 }
 
-let state = "start";
+let state = "game";
 
 function draw() {
   if (state === "start") {
