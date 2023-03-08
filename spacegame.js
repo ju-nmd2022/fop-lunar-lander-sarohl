@@ -142,6 +142,11 @@ function alien() {
   pop();
   fill(0, 0, 0);
   ellipse(xAlien + 170 * sAlien, yAlien + 108 * sAlien, 7.5 * sAlien);
+
+  // mouth
+  fill(0, 0, 0);
+  ellipse(349, 453, 7, 6);
+
   //stick
   fill(149, 224, 189);
   rect(xAlien + 169 * sAlien, yAlien + 89 * sAlien, 2 * sAlien, 12 * sAlien);
@@ -243,7 +248,7 @@ function winScreen() {
   }
 }
 
-let state = "game";
+let state = "start";
 
 function draw() {
   if (state === "start") {
@@ -256,4 +261,3 @@ function draw() {
     winScreen();
   }
 }
-console.log(xAlien);
