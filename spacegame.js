@@ -1,3 +1,8 @@
+function setup() {
+  createCanvas(600, 600);
+  frameRate(30);
+}
+
 let starx = [];
 let starY = [];
 let starAlpha = [];
@@ -16,8 +21,8 @@ let isGameActive = false;
 
 // star blinking
 for (let i = 0; i < 250; i++) {
-  const x = Math.floor(Math.random() * width);
-  const y = Math.floor(Math.random() * height);
+  const x = Math.floor(Math.random() * 600);
+  const y = Math.floor(Math.random() * 600);
   const alpha = Math.random();
 
   starx.push(x);
